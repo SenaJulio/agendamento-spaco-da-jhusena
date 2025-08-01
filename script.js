@@ -1,25 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Seta a data mínima para hoje (pro usuário não escolher datas passadas)
+  // Seta a data mínima para hoje
   const inputData = document.getElementById('data');
   const hoje = new Date().toISOString().split('T')[0];
   inputData.min = hoje;
 
-  // Form e mensagem de sucesso
+  // Referências do formulário e mensagem
   const form = document.getElementById('agendamento-form');
   const msgSucesso = document.getElementById('msg-sucesso');
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Aqui você pode adicionar o código pra enviar os dados para seu backend ou API
-    // Por enquanto só mostra a mensagem de sucesso e reseta o formulário
+    const formData = {
+      nome: document.getElementById('nome').value,
+      cliente: document.getElementById('pet').value,
+      telefone: document.getElementById('telefone').value,
+      email: document.getElementById('email').value,
+      servico: document.getElementById('servico').value,
+      data: document.getElementById('data').value,
+      hora: document.getElementById('hora').value,
+    };
 
-    form.reset();
-    msgSucesso.hidden = false;
+    try {
+      const response = await fetch('https://SEU_BACKEND.com/api/agendamentos/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Oculta a mensagem após 5 segundos
-    setTimeout(() => {
-      msgSucesso.hidden = true;
-    }, 5000);
+      if (response.ok) {
+        form.reset();
+        msgSucesso.hidden = false;
+        setTimeout(() => (msgSucesso.hidden = true), 5000);
+      } else {
+        alert('Erro ao agendar. Tente novamente mais tarde.');
+      }
+    } catch (error) {
+      alert('Erro de conexão com o servidor.');
+    }
   });
 });
