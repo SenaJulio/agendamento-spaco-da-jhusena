@@ -3,49 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agendamento - Spaço da Jhuséna 💚🐾</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Agendamento Spaço da Jhuséna</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e6f2e6;
+      color: #235423;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    form {
+      background: #f9fff9;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #8bc34aaa;
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #2d6b2d;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 5px;
+      border: 1px solid #9ccc9c;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    button {
+      margin-top: 25px;
+      background-color: #4caf50;
+      color: white;
+      font-size: 1.1em;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #3a8d3a;
+    }
+    #msg-sucesso {
+      display: none;
+      margin-top: 20px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Spaço da Jhuséna Logo" class="logo" />
-    <h1>Agendamento Online</h1>
-    <p>Agende seu banho e tosa rapidinho, sem complicação!</p>
-  </header>
 
-  <main>
-    <form id="agendamento-form">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required placeholder="Seu nome completo" />
+  <form id="agendamento-form">
+    <h1>💚 Agende o banho e tosa do seu pet!</h1>
+    
+    <label for="nome-tutor">Nome do tutor</label>
+    <input type="text" id="nome-tutor" name="nomeTutor" required />
 
-      <label for="telefone">Telefone:</label>
-      <input type="tel" id="telefone" name="telefone" required placeholder="(99) 99999-9999" pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" />
+    <label for="nome-pet">Nome do pet</label>
+    <input type="text" id="nome-pet" name="nomePet" required />
 
-      <label for="email">E-mail:</label>
-      <input type="email" id="email" name="email" required placeholder="exemplo@dominio.com" />
+    <label for="telefone">Telefone</label>
+    <input type="tel" id="telefone" name="telefone" pattern="\d{10,11}" placeholder="Ex: 11999998888" required />
 
-      <label for="servico">Serviço:</label>
-      <select id="servico" name="servico" required>
-        <option value="" disabled selected>Selecione um serviço</option>
-        <option value="banho">Banho</option>
-        <option value="tosa">Tosa</option>
-        <option value="banho_tosa">Banho & Tosa</option>
-      </select>
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required />
 
-      <label for="data">Data:</label>
-      <input type="date" id="data" name="data" required min="" />
+    <label for="servico">Selecione o serviço</label>
+    <select id="servico" name="servico" required>
+      <option value="" disabled selected>-- Escolha um serviço --</option>
+      <option value="banho">Banho</option>
+      <option value="tosa">Tosa</option>
+      <option value="banho-e-tosa">Banho & Tosa</option>
+    </select>
 
-      <label for="hora">Hora:</label>
-      <input type="time" id="hora" name="hora" required />
+    <label for="data">Data</label>
+    <input type="date" id="data" name="data" required />
 
-      <button type="submit">Agendar</button>
-    </form>
+    <label for="hora">Hora</label>
+    <input type="time" id="hora" name="hora" required />
 
-    <div id="msg-sucesso" class="msg-sucesso" hidden>
-      🐾 Seu agendamento foi enviado com sucesso! Entraremos em contato. 💚
-    </div>
-  </main>
+    <button type="submit">Agendar</button>
+    
+    <div id="msg-sucesso">Agendamento realizado com sucesso! Obrigado 🐾</div>
+  </form>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputData = document.getElementById('data');
+      const hoje = new Date().toISOString().split('T')[0];
+      inputData.min = hoje;
+
+      const form = document.getElementById('agendamento-form');
+      const msgSucesso = document.getElementById('msg-sucesso');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Aqui pode mandar para seu backend com fetch ou outra coisa...
+
+        form.reset();
+        msgSucesso.style.display = 'block';
+
+        setTimeout(() => {
+          msgSucesso.style.display = 'none';
+        }, 5000);
+      });
+    });
+  </script>
+
 </body>
 </html>
