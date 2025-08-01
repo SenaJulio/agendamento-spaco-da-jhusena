@@ -2,30 +2,50 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agendamento - Spaço da Jhuséna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agendamento - Spaço da Jhuséna 💚🐾</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>💚 Agende o banho e tosa do seu pet!</h1>
-    <form id="formAgendamento">
-      <input type="text" placeholder="Nome do tutor" required />
-      <input type="text" placeholder="Nome do pet" required />
-      <input type="tel" placeholder="Telefone" required />
-      <input type="email" placeholder="E-mail" required />
-      <select required>
-        <option value="">Selecione o serviço</option>
-        <option>Banho</option>
-        <option>Tosa</option>
-        <option>Banho & Tosa</option>
+  <header>
+    <img src="logo.png" alt="Spaço da Jhuséna Logo" class="logo" />
+    <h1>Agendamento Online</h1>
+    <p>Agende seu banho e tosa rapidinho, sem complicação!</p>
+  </header>
+
+  <main>
+    <form id="agendamento-form">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required placeholder="Seu nome completo" />
+
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" name="telefone" required placeholder="(99) 99999-9999" pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" />
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required placeholder="exemplo@dominio.com" />
+
+      <label for="servico">Serviço:</label>
+      <select id="servico" name="servico" required>
+        <option value="" disabled selected>Selecione um serviço</option>
+        <option value="banho">Banho</option>
+        <option value="tosa">Tosa</option>
+        <option value="banho_tosa">Banho & Tosa</option>
       </select>
-      <input type="date" required />
-      <input type="time" required />
+
+      <label for="data">Data:</label>
+      <input type="date" id="data" name="data" required min="" />
+
+      <label for="hora">Hora:</label>
+      <input type="time" id="hora" name="hora" required />
+
       <button type="submit">Agendar</button>
     </form>
-    <p id="resposta"></p>
-  </div>
+
+    <div id="msg-sucesso" class="msg-sucesso" hidden>
+      🐾 Seu agendamento foi enviado com sucesso! Entraremos em contato. 💚
+    </div>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
